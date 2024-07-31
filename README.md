@@ -21,11 +21,13 @@ Login :)
 
 Light mode
 
-![claro](https://github.com/user-attachments/assets/4e653846-5277-42f8-8ac3-5d3cd7837c11)
+![claro](https://github.com/user-attachments/assets/9bb80d93-019c-472c-896b-0f6f4d571211)
+
 
 Dark mode
 
-![oscuro](https://github.com/user-attachments/assets/cd2c9174-9f3d-45a9-8f36-393aeb115117)
+![oscuro](https://github.com/user-attachments/assets/6dfe55cb-ecdf-4e4f-8dc7-8da8f5eb38a5)
+
 
 From the admin panel you can change the name of the page, configure the logo in png and also configure ads.
 
