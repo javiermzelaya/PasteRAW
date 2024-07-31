@@ -34,9 +34,9 @@ CREATE TABLE `settings` (
 
 -- Volcado de datos para la tabla `settings`
 INSERT INTO `settings` (`id`, `setting_key`, `setting_value`, `title`, `footer_legend`, `logo_filename`) VALUES
-(1, 'site_title', '', 'PASTEBIN', '', NULL),
-(2, 'footer_legend', '', 'PASTEBIN', '', NULL),
-(3, '', '', 'PASTEBIN', '', NULL);
+(1, 'site_title', '', 'PasteRAW', '', NULL),
+(2, 'footer_legend', '', 'PasteRAW', '', NULL),
+(3, '', '', 'PasteRAW', '', NULL);
 
 -- Estructura de tabla para la tabla `users`
 CREATE TABLE `users` (
