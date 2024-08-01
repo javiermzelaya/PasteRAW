@@ -1,4 +1,4 @@
-Pastebin-like script where users can create and share text-based content. It includes fields for a title and the main content, along with a "Create Paste" button. The script offers options for logging in, registering, and toggling dark mode.
+The Pasteraw script is a pastebin-like application that allows users to create and share text-based content. It features user registration, login, dark mode, and an admin panel for configuring site settings. Users can create pastes with titles and content, and the admin panel lets you change the site name, logo, and ads. It also provides a recovery phrase for password recovery and options to view pastes in plain or raw text.
 
 **Requirements:**
 
@@ -26,10 +26,5 @@ PHP 8.x
 
 ![dark](https://github.com/user-attachments/assets/2e17cb61-2de4-4903-9ac0-1ee27c626e0c)
 
-From the admin panel you can change the name of the page, configure the logo in png and also configure ads.
-
-The registration provides a recovery phrase of 12 common words to avoid sending emails to recover the password.
-
-The script provides two options plain text and raw text from view.php or raw.php.
 
 
