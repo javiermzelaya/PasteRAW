@@ -22,13 +22,11 @@ PHP Composer
 
 **LIGHT MODE**
 
-![ligth](https://github.com/user-attachments/assets/16209f44-31d6-4104-8994-f32d29f70d92)
-
+![ligth](https://github.com/user-attachments/assets/1ed6e323-b9af-4c39-9ff1-0651d60f718b)
 
 **DARK MODE**
 
-![dark](https://github.com/user-attachments/assets/287afb45-9703-4e01-a904-de70875110ca)
-
+![dark](https://github.com/user-attachments/assets/2e17cb61-2de4-4903-9ac0-1ee27c626e0c)
 
 From the admin panel you can change the name of the page, configure the logo in png and also configure ads.
 
