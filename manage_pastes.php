@@ -68,6 +68,13 @@ $pastes = $stmt->fetchAll();
 		.dark-mode tbody tr td {
 			border: 1px solid #4a4a4a !important;
 		}
+		thead tr th {
+			border: 1px solid #d9d9d9 !important;
+		}
+
+		tbody tr td {
+			border: 1px solid #d9d9d9 !important;
+		}	
         .dark-mode .table .btn-secondary {
             background-color: #6c757d;
             border-color: #6c757d;
@@ -97,7 +104,6 @@ $pastes = $stmt->fetchAll();
         }
     </style>
 </head>
-<body class="dark-mode">
 
 <?php include 'navbar.php'; ?>
 
