@@ -27,143 +27,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add User - <?= htmlspecialchars($site_name) ?></title>
+    <title>Admin Panel - <?= htmlspecialchars($title) ?></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <style>
-		@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap');
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-.poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
         body {
-            background-color: #121212;
-            color: #e0e0e0;
             font-family: Poppins;
-            margin: 0;
-            padding: 0;
+            margin-bottom: 150px;
         }
-
-        .navbar {
+        .dark-mode {
             background-color: #1e1e1e;
-            border-bottom: 1px solid #333333;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 10px 20px;
+            color: #ffffff;
         }
-
-        .container {
+        .dark-mode .navbar {
+            background-color: #2c2c2c;
+            border-bottom: 1px solid #3a3a3a;
+        }
+        .dark-mode .container {
             background-color: #1c1c1c;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
         }
-
-        h1, h2 {
+        .dark-mode h1, .dark-mode h2 {
             color: #ffffff;
-            font-weight: 700;
         }
-
-        .form-group label {
-            color: #b0b0b0;
-            font-weight: 500;
+        .dark-mode .form-group label {
+            color: #cccccc;
         }
-
-        .form-control {
-            background-color: #333333;
-            color: #e0e0e0;
+        .dark-mode .form-control {
+            background-color: #3a3a3a;
+            color: #ffffff;
             border: 1px solid #555555;
             border-radius: 5px;
-            padding: 10px;
         }
-
-        .form-control:focus {
-            background-color: #333333;
-            color: #e0e0e0;
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        .dark-mode .form-control:focus {
+            background-color: #3a3a3a;
+            color: #ffffff;
+            border-color: #007bff;
+            box-shadow: none;
         }
-
-        .btn-primary {
+        .dark-mode .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            color: #ffffff;
-            font-weight: 500;
-            padding: 10px 20px;
             border-radius: 5px;
-            transition: background-color 0.2s, border-color 0.2s;
         }
-
-        .btn-primary:hover {
+        .dark-mode .btn-primary:hover {
             background-color: #0056b3;
             border-color: #004085;
         }
-
-        .table {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-            border-collapse: separate;
-            border-spacing: 0 0.5rem;
-            width: 100%;
-            margin: 20px 0;
-        }
-
-        .table thead th {
+        .dark-mode .table {
             background-color: #2c2c2c;
-            border-bottom: 2px solid #3a3a3a;
-            padding: 12px 15px;
-            text-align: left;
-            font-weight: 600;
-            color: #e0e0e0;
-        }
-
-        .table tbody tr {
-            border: 1px solid #3a3a3a;
+            color: #ffffff;
             border-radius: 5px;
+        }
+        .dark-mode .table thead th {
+            background-color: #3a3a3a;
+            border-bottom: 1px solid #4a4a4a;
+        }
+        .dark-mode .table tbody tr {
+            border-top: 1px solid #4a4a4a;
+        }
+        .dark-mode .table tbody tr:nth-child(even) {
             background-color: #2c2c2c;
-            transition: background-color 0.2s;
         }
-
-        .table tbody tr:hover {
-            background-color: #424242;
+        .dark-mode .table tbody tr:nth-child(odd) {
+            background-color: #3a3a3a;
         }
-
-        .table tbody tr:nth-child(even) {
-            background-color: #2c2c2c;
-        }
-
-        .table tbody tr:nth-child(odd) {
-            background-color: #333333;
-        }
-
-        .table .btn-warning {
+        .dark-mode .table .btn-warning {
             background-color: #ffc107;
             border-color: #ffc107;
             color: #000000;
-            font-weight: 500;
+            border-radius: 5px;
         }
-
-        .table .btn-warning:hover {
+        .dark-mode .table .btn-warning:hover {
             background-color: #e0a800;
             border-color: #d39e00;
         }
-
-        .table .btn-danger {
+        .dark-mode .table .btn-danger {
             background-color: #dc3545;
             border-color: #dc3545;
             color: #ffffff;
-            font-weight: 500;
+            border-radius: 5px;
         }
-
-        .table .btn-danger:hover {
+        .dark-mode .table .btn-danger:hover {
             background-color: #c82333;
             border-color: #bd2130;
+        }
+        .navbar-dark .navbar-brand {
+            color: #ffffff;
+        }
+        div.container.mt-5 {
+            margin-bottom: 40px;
         }
     </style>
 </head>
