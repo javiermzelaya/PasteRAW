@@ -148,7 +148,7 @@ $logo_filename = $settings['logo_filename'] ?? '';
 
 /* Estilo del logo del navbar */
 .navbar-logo {
-    height: 40px;
+    height: 100px;
     transition: transform 0.3s ease;
 }
 
