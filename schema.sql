@@ -77,7 +77,7 @@ ALTER TABLE `ads_settings`
 
 -- AUTO_INCREMENT de la tabla `pastes`
 ALTER TABLE `pastes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- AUTO_INCREMENT de la tabla `settings`
 ALTER TABLE `settings`
