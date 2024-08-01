@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include 'navbar.php'; ?>
 
-<div class="container">
+<div class="container mt-5">
     <h2>Add User</h2>
     <form action="add_user.php" method="post">
         <div class="form-group">
