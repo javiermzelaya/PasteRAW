@@ -4,19 +4,14 @@ The PasteRAW script is a pastebin-like application that allows users to create a
 
 PHP 8.x
 
-**Installation process:**
+**Installation Process:**
 
--Upload the files to your host
-
--Create a database
-
--Enter your domain-name/install.php
-
--Complete with your database information
-
--An administrator user with a random password will be created
-
--Login
+1. Upload the files to your hosting server.
+2. Create a database.
+3. Visit your domain-name/install.php.
+4. Fill in your database details.
+5. An administrator user with a randomly generated password will be created.
+6. Log in.
 
 **LIGHT MODE**
 
