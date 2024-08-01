@@ -1,4 +1,4 @@
-The Pasteraw script is a pastebin-like application that allows users to create and share text-based content. It features user registration, login, dark mode, and an admin panel for configuring site settings. Users can create pastes with titles and content, and the admin panel lets you change the site name, logo, and ads. It also provides a recovery phrase for password recovery and options to view pastes in plain or raw text.
+The PasteRAW script is a pastebin-like application that allows users to create and share text-based content. It features user registration, login, dark mode, and an admin panel for configuring site settings. Users can create pastes with titles and content, and the admin panel lets you change the site name, logo, and ads. It also provides a recovery phrase for password recovery and options to view pastes in plain or raw text.
 
 **Requirements:**
 
