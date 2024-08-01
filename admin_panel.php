@@ -1,7 +1,8 @@
-<?php
+<?php 
 session_start();
 require 'config.php'; // Incluir la configuración global
 
+// Verificar permisos de administrador
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
@@ -15,8 +16,9 @@ $logo_filename = $settings['logo_filename'] ?? '';
 $footer_legend = $settings['footer_legend'] ?? '';
 
 // Obtener la configuración de anuncios
-$stmt_ads = $pdo->query('SELECT ad_type, ad_code FROM ads_settings');
-$ads_settings = $stmt_ads->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare('SELECT ad_type, ad_code FROM ads_settings');
+$stmt->execute();
+$ads_settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $ads = [];
 foreach ($ads_settings as $ad) {
     $ads[$ad['ad_type']] = $ad['ad_code'];
@@ -54,20 +56,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$footer_legend]);
     }
 
-    // Actualizar los anuncios
-    $ad_types = ['banner', 'skyscraper', 'leaderboard', 'rectangle', 'mobile'];
-    foreach ($ad_types as $type) {
-        if (isset($_POST["ad_code_$type"])) {
-            $ad_code = $_POST["ad_code_$type"];
-            $stmt = $pdo->prepare('INSERT INTO ads_settings (ad_type, ad_code) VALUES (?, ?) ON DUPLICATE KEY UPDATE ad_code = ?');
-            $stmt->execute([$type, $ad_code, $ad_code]);
+    // Manejar la actualización de los anuncios
+    if (isset($_POST['update_ads'])) {
+        $ad_types = ['banner', 'skyscraper', 'leaderboard', 'rectangle', 'mobile'];
+        foreach ($ad_types as $type) {
+            if (isset($_POST["ad_code_$type"])) {
+                $ad_code = $_POST["ad_code_$type"];
+                $stmt = $pdo->prepare('INSERT INTO ads_settings (ad_type, ad_code) VALUES (?, ?) ON DUPLICATE KEY UPDATE ad_code = ?');
+                $stmt->execute([$type, $ad_code, $ad_code]);
+            }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,19 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <style>
-		@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap');
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-.poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
         body {
             font-family: Poppins;
+            margin-bottom: 150px;
         }
         .dark-mode {
             background-color: #1e1e1e;
@@ -171,9 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .navbar-dark .navbar-brand {
             color: #ffffff;
         }
-		div.container.mt-5 {
-  			margin-bottom: 40px;
-		}
+        div.container.mt-5 {
+            margin-bottom: 40px;
+        }
     </style>
 </head>
 <body>
@@ -182,6 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="container mt-5">
     <h2 class="mb-4">Admin Panel</h2>
+    
     <form action="admin_panel.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Site Title:</label>
@@ -201,41 +197,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
         </div>
-        <div class="form-group">
-            <label for="ad_code_banner">Banner Ad Code (728x90):</label>
-            <textarea id="ad_code_banner" name="ad_code_banner" class="form-control" rows="5"><?= htmlspecialchars($ads['banner'] ?? '') ?></textarea>
-        </div>
-        <div class="form-group">
-            <label for="ad_code_skyscraper">Skyscraper Ad Code (160x600):</label>
-            <textarea id="ad_code_skyscraper" name="ad_code_skyscraper" class="form-control" rows="5"><?= htmlspecialchars($ads['skyscraper'] ?? '') ?></textarea>
-        </div>
-        <div class="form-group">
-            <label for="ad_code_leaderboard">Leaderboard Ad Code (728x90):</label>
-            <textarea id="ad_code_leaderboard" name="ad_code_leaderboard" class="form-control" rows="5"><?= htmlspecialchars($ads['leaderboard'] ?? '') ?></textarea>
-        </div>
-        <div class="form-group">
-            <label for="ad_code_rectangle">Rectangle Ad Code (300x250):</label>
-            <textarea id="ad_code_rectangle" name="ad_code_rectangle" class="form-control" rows="5"><?= htmlspecialchars($ads['rectangle'] ?? '') ?></textarea>
-        </div>
-        <div class="form-group">
-            <label for="ad_code_mobile">Mobile Ad Code (300x50):</label>
-            <textarea id="ad_code_mobile" name="ad_code_mobile" class="form-control" rows="5"><?= htmlspecialchars($ads['mobile'] ?? '') ?></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Update Settings</button>
+        <button type="submit" name="update_logo" class="btn btn-primary">Update Settings</button>
     </form>
-
-    <div class="mt-5">
+    
+    <h3 class="mt-5">Advertisement Settings</h3>
+    <form action="admin_panel.php" method="post">
+        <?php
+        $ad_types = ['banner' => 'Banner', 'skyscraper' => 'Skyscraper', 'leaderboard' => 'Leaderboard', 'rectangle' => 'Rectangle', 'mobile' => 'Mobile'];
+        foreach ($ad_types as $type => $label): ?>
+            <div class="form-group">
+                <label for="ad_code_<?= $type ?>"><?= $label ?> Ad Code:</label>
+                <textarea id="ad_code_<?= $type ?>" name="ad_code_<?= $type ?>" class="form-control" rows="4"><?= htmlspecialchars($ads[$type] ?? '') ?></textarea>
+            </div>
+        <?php endforeach; ?>
+        <button type="submit" name="update_ads" class="btn btn-primary">Update Ads</button>
+    </form>
+	    <div class="mt-5">
         <h2>Manage Users</h2>
-        <a href="manage_users.php" class="btn btn-primary">Manage Users</a>
+        <a href="manage_users.php" class="btn btn-primary">Manage Users</a> <a href="add_user.php" class="btn btn-primary">Add User</a>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-5">
         <h2>Manage Pastes</h2>
         <a href="manage_pastes.php" class="btn btn-primary">Manage Pastes</a>
     </div>
 </div>
+
+<?php include 'footbar.php'; ?>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
