@@ -133,7 +133,14 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		.dark-mode tbody tr td {
 			border: 1px solid #4a4a4a !important;
-		}		
+		}
+		thead tr th {
+			border: 1px solid #d9d9d9 !important;
+		}
+
+		tbody tr td {
+			border: 1px solid #d9d9d9 !important;
+		}
         .dark-mode .table .btn-warning {
             background-color: #ffc107;
             border-color: #ffc107;
