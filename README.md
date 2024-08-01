@@ -8,25 +8,26 @@ PHP Composer
 
 **Installation process:**
 
-Upload the files to your host
+-Upload the files to your host
 
-Create a database
+-Create a database
 
-Enter your domain-name/install.php
+-Enter your domain-name/install.php
 
-Complete with your database information
+-Complete with your database information
 
-An administrator user with a random password will be created
-Login :)
+-An administrator user with a random password will be created
 
-Light mode
+-Login
 
-![claro](https://github.com/user-attachments/assets/9bb80d93-019c-472c-896b-0f6f4d571211)
+**LIGHT MODE**
+
+![ligth](https://github.com/user-attachments/assets/16209f44-31d6-4104-8994-f32d29f70d92)
 
 
-Dark mode
+**DARK MODE**
 
-![oscuro](https://github.com/user-attachments/assets/6dfe55cb-ecdf-4e4f-8dc7-8da8f5eb38a5)
+![dark](https://github.com/user-attachments/assets/287afb45-9703-4e01-a904-de70875110ca)
 
 
 From the admin panel you can change the name of the page, configure the logo in png and also configure ads.
