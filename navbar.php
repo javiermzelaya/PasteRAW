@@ -52,11 +52,15 @@ $logo_filename = $settings['logo_filename'] ?? '';
         const toggle = document.getElementById('dark-mode-toggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         const navbar = document.getElementById('navbar');
+        const footer = document.getElementById('footer');
 
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-mode');
             navbar.classList.replace('navbar-light', 'navbar-dark');
             navbar.classList.replace('bg-light', 'bg-dark');
+            if (footer) {
+                footer.classList.replace('bg-light', 'bg-dark');
+            }
             toggle.textContent = 'Light Mode';
         } else {
             toggle.textContent = 'Dark Mode';
@@ -70,10 +74,16 @@ $logo_filename = $settings['logo_filename'] ?? '';
             if (theme === 'dark') {
                 navbar.classList.replace('navbar-light', 'navbar-dark');
                 navbar.classList.replace('bg-light', 'bg-dark');
+                if (footer) {
+                    footer.classList.replace('bg-light', 'bg-dark');
+                }
                 toggle.textContent = 'Light Mode';
             } else {
                 navbar.classList.replace('navbar-dark', 'navbar-light');
                 navbar.classList.replace('bg-dark', 'bg-light');
+                if (footer) {
+                    footer.classList.replace('bg-dark', 'bg-light');
+                }
                 toggle.textContent = 'Dark Mode';
             }
         });
