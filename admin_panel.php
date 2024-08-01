@@ -11,9 +11,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 // Obtener la configuración actual
 $stmt = $pdo->query('SELECT title, logo_filename, footer_legend FROM settings LIMIT 1');
 $settings = $stmt->fetch();
-$title = $settings['title'] ?? 'Your Site Title';
 $logo_filename = $settings['logo_filename'] ?? '';
 $footer_legend = $settings['footer_legend'] ?? '';
+$site_name = $settings['title'];
 
 // Obtener la configuración de anuncios
 $stmt = $pdo->prepare('SELECT ad_type, ad_code FROM ads_settings');
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - <?= htmlspecialchars($title) ?></title>
+    <title>Admin Panel - <?= htmlspecialchars($site_name) ?></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <style>
@@ -176,12 +176,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'navbar.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Admin Panel</h2>
+        <title>Admin Panel - <?= htmlspecialchars($site_name) ?></title>
     
     <form action="admin_panel.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Site Title:</label>
-            <input type="text" id="title" name="title" class="form-control" value="<?= htmlspecialchars($title) ?>">
+            <input type="text" id="title" name="title" class="form-control" value="<?= htmlspecialchars($site_name) ?>">
         </div>
         <div class="form-group">
             <label for="footer_legend">Footer Legend:</label>
