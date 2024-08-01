@@ -4,8 +4,6 @@ Pastebin-like script where users can create and share text-based content. It inc
 
 PHP 8.x
 
-PHP Composer
-
 **Installation process:**
 
 -Upload the files to your host
