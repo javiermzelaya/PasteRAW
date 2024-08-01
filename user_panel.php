@@ -1,4 +1,4 @@
-			<?php include 'footbar.php'; ?><?php
+<?php
 session_start();
 require 'config.php'; // Incluir la configuración global
 
@@ -54,19 +54,19 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <style>
-		@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-.poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
+        @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+        
+        .poppins-thin {
+            font-family: "Poppins", sans-serif;
+            font-weight: 100;
+            font-style: normal;
+        }
         body {
             font-family: Poppins;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navbar, .footer {
+            transition: background-color 0.3s, color 0.3s;
         }
         .dark-mode {
             background-color: #1e1e1e;
@@ -81,6 +81,10 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .dark-mode .footer {
+            background-color: #2c2c2c;
+            color: #ffffff;
         }
         .dark-mode h1, .dark-mode h2 {
             color: #ffffff;
@@ -117,15 +121,19 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #3a3a3a;
             border-bottom: 1px solid #4a4a4a;
         }
-        .dark-mode .table tbody tr {
-            border-top: 1px solid #4a4a4a;
-        }
         .dark-mode .table tbody tr:nth-child(even) {
             background-color: #2c2c2c;
         }
         .dark-mode .table tbody tr:nth-child(odd) {
             background-color: #3a3a3a;
         }
+		.dark-mode thead tr th {
+  			border: 1px solid #4a4a4a !important;
+		}
+
+		.dark-mode tbody tr td {
+			border: 1px solid #4a4a4a !important;
+		}		
         .dark-mode .table .btn-warning {
             background-color: #ffc107;
             border-color: #ffc107;
@@ -153,69 +161,60 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #138496;
             border-color: #117a8b;
         }
-        table.table.table-hover {
-  border-style: none !important;
-}
-        thead tr th {
-  border-style: none !important;
-}
-        tbody tr td {
-  border-style: none !important;
-}
     </style>
 </head>
 <body>
-<?php include 'navbar.php'; ?>
-<div class="container mt-5">
-    <h1 class="mb-4">User Panel</h1>
+    <?php include 'navbar.php'; ?>
+    <div class="container mt-5">
+        <h1 class="mb-4">User Panel</h1>
 
-    <h2>Profile</h2>
-    <form action="user_panel.php" method="post">
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" class="form-control" value="<?= htmlspecialchars($username) ?>" readonly>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>" required>
-        </div>
-        <div class="form-group">
-            <label for="password">New Password:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
-    </form>
+        <h2>Profile</h2>
+        <form action="user_panel.php" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="<?= htmlspecialchars($username) ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+        </form>
 
-    <h2 class="mt-5">My Pastes</h2>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Created At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($pastes as $paste): ?>
+        <h2 class="mt-5">My Pastes</h2>
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($paste['id']) ?></td>
-                    <td><?= htmlspecialchars($paste['title']) ?></td>
-                    <td><?= htmlspecialchars($paste['created_at']) ?></td>
-                    <td>
-                        <a href="view.php?id=<?= $paste['id'] ?>" class="btn btn-info btn-sm">View</a>
-                        <a href="edit_paste.php?id=<?= $paste['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="delete_paste.php?id=<?= $paste['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this paste?');">Delete</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
-			<?php include 'footbar.php'; ?>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="script.js"></script>
+            </thead>
+            <tbody>
+                <?php foreach ($pastes as $paste): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($paste['id']) ?></td>
+                        <td><?= htmlspecialchars($paste['title']) ?></td>
+                        <td><?= htmlspecialchars($paste['created_at']) ?></td>
+                        <td>
+                            <a href="view.php?id=<?= $paste['id'] ?>" class="btn btn-info btn-sm">View</a>
+                            <a href="edit_paste.php?id=<?= $paste['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="delete_paste.php?id=<?= $paste['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this paste?');">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php include 'footbar.php'; ?>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
