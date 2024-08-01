@@ -152,7 +152,13 @@ $footer_legend = $settings['footer_legend'];
         .dark-mode .table tbody tr {
             border-top: 1px solid #4a4a4a;
         }
+		thead tr th {
+			border: 1px solid #d9d9d9 !important;
+		}
 
+		tbody tr td {
+			border: 1px solid #d9d9d9 !important;
+		}
         .dark-mode .table tbody tr:nth-child(even) {
             background-color: #2c2c2c;
         }
@@ -196,8 +202,6 @@ $footer_legend = $settings['footer_legend'];
         }
     </style>
 </head>
-<body class="dark-mode">
-
 <?php include 'navbar.php'; ?>
 <div class="container mt-5">
     <h2>Add New User</h2>
