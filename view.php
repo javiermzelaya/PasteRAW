@@ -49,6 +49,10 @@ $paste = $stmt->fetch();
             height: auto;
             box-sizing: border-box;
         }
+		div.code-container {
+  			line-height: 15px
+  
+		}
         .line-numbers {
             font-family: 'Consolas', 'Courier New', monospace;
             padding-right: 10px;
