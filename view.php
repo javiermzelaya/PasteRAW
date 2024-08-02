@@ -27,19 +27,21 @@ $paste = $stmt->fetch();
         @import url(https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap);
         body {
             font-family: Poppins, sans-serif;
-            margin-bottom: 100px;
-            transition: background-color 0.3s, color 0.3s;
         }
-        .navbar {
-            transition: background-color 0.3s, color 0.3s;
-        }
+		.dark-mode body. {
+ 			 background-color: #1e1e1e;
+  
+		}
+		h1.options.text-center {
+  margin-top: 25px;
+}
         .code-container {
             font-family: 'Consolas', 'Courier New', monospace;
             display: flex;
             color: #d4d4d4;
             padding: 10px;
             overflow: auto;
-            height: 100vh;
+            height: auto;
             box-sizing: border-box;
         }
         .line-numbers {
@@ -68,8 +70,9 @@ $paste = $stmt->fetch();
         </div>
     <?php endif; ?>
 
-    <div class="container mt-5">
-        <h1 class="display-4 text-nowrap"><?= htmlspecialchars($paste['title']) ?></h1>
+    <div class="container-fluid">
+        <h1 class="options text-center"><?= htmlspecialchars($paste['title']) ?></h1>
+	</div>
         <div class="code-container">
             <div class="line-numbers"></div>
             <pre class="code-content"><code id="paste-code"><?= htmlspecialchars($paste['content']) ?></code></pre>
@@ -88,8 +91,6 @@ $paste = $stmt->fetch();
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
-    </div>
-
     <script>
         window.onload = function() {
             const codeElement = document.getElementById('paste-code');
