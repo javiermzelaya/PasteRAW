@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Manejar la actualización de los anuncios
     if (isset($_POST['update_ads'])) {
-        $ad_types = ['banner', 'skyscraper', 'leaderboard', 'rectangle', 'mobile'];
+        $ad_types = ['banner_top', 'banner_bottom'];
         foreach ($ad_types as $type) {
             if (isset($_POST["ad_code_$type"])) {
                 $ad_code = $_POST["ad_code_$type"];
@@ -87,56 +87,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 	<?php include 'navbar.php'; ?>
-<div class="container mt-5">
+    <div class="container mt-5">
         <title>Admin Panel - <?= htmlspecialchars($site_name) ?></title>
     
-    <form action="admin_panel.php" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="title">Site Title:</label>
-            <input type="text" id="title" name="title" class="form-control" value="<?= htmlspecialchars($site_name) ?>">
-        </div>
-        <div class="form-group">
-            <label for="footer_legend">Footer Legend:</label>
-            <input type="text" id="footer_legend" name="footer_legend" class="form-control" value="<?= htmlspecialchars($footer_legend) ?>">
-        </div>
-        <div class="form-group">
-            <label for="logo">Upload Logo:</label>
-            <input type="file" id="logo" name="logo" class="form-control">
-            <?php if ($logo_filename): ?>
-                <div class="mt-3">
-                    <img src="uploads/<?= htmlspecialchars($logo_filename) ?>" alt="Logo" style="max-width: 200px;">
-                    <button type="submit" name="delete_logo" class="btn btn-danger mt-2">Delete Logo</button>
-                </div>
-            <?php endif; ?>
-        </div>
-        <button type="submit" name="update_logo" class="btn btn-primary">Update Settings</button>
-    </form>
-    
-    <h3 class="mt-5">Advertisement Settings</h3>
-    <form action="admin_panel.php" method="post">
-        <?php
-        $ad_types = ['banner' => 'Banner', 'skyscraper' => 'Skyscraper', 'leaderboard' => 'Leaderboard', 'rectangle' => 'Rectangle', 'mobile' => 'Mobile'];
-        foreach ($ad_types as $type => $label): ?>
+        <form action="admin_panel.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="ad_code_<?= $type ?>"><?= $label ?> Ad Code:</label>
-                <textarea id="ad_code_<?= $type ?>" name="ad_code_<?= $type ?>" class="form-control" rows="4"><?= htmlspecialchars($ads[$type] ?? '') ?></textarea>
+                <label for="title">Site Title:</label>
+                <input type="text" id="title" name="title" class="form-control" value="<?= htmlspecialchars($site_name) ?>">
             </div>
-        <?php endforeach; ?>
-        <button type="submit" name="update_ads" class="btn btn-primary">Update Ads</button>
-    </form>
-	    <div class="mt-5">
-        <h2>Manage Users</h2>
-        <a href="manage_users.php" class="btn btn-primary">Manage Users</a> <a href="add_user.php" class="btn btn-primary">Add User</a>
-    </div>
+            <div class="form-group">
+                <label for="footer_legend">Footer Legend:</label>
+                <input type="text" id="footer_legend" name="footer_legend" class="form-control" value="<?= htmlspecialchars($footer_legend) ?>">
+            </div>
+            <div class="form-group">
+                <label for="logo">Upload Logo:</label>
+                <input type="file" id="logo" name="logo" class="form-control">
+                <?php if ($logo_filename): ?>
+                    <div class="mt-3">
+                        <img src="uploads/<?= htmlspecialchars($logo_filename) ?>" alt="Logo" style="max-width: 200px;">
+                        <button type="submit" name="delete_logo" class="btn btn-danger mt-2">Delete Logo</button>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <button type="submit" name="update_logo" class="btn btn-primary">Update Settings</button>
+        </form>
+        
+        <h3 class="mt-5">Advertisement Settings</h3>
+        <form action="admin_panel.php" method="post">
+            <?php
+            $ad_types = ['banner_top' => 'Banner Top', 'banner_bottom' => 'Banner Bottom'];
+            foreach ($ad_types as $type => $label): ?>
+                <div class="form-group">
+                    <label for="ad_code_<?= $type ?>"><?= $label ?> Ad Code:</label>
+                    <textarea id="ad_code_<?= $type ?>" name="ad_code_<?= $type ?>" class="form-control" rows="4"><?= htmlspecialchars($ads[$type] ?? '') ?></textarea>
+                </div>
+            <?php endforeach; ?>
+            <button type="submit" name="update_ads" class="btn btn-primary">Update Ads</button>
+        </form>
+        
+        <div class="mt-5">
+            <h2>Manage Users</h2>
+            <a href="manage_users.php" class="btn btn-primary">Manage Users</a> <a href="add_user.php" class="btn btn-primary">Add User</a>
+        </div>
 
-    <div class="mt-5">
-        <h2>Manage Pastes</h2>
-        <a href="manage_pastes.php" class="btn btn-primary">Manage Pastes</a>
+        <div class="mt-5">
+            <h2>Manage Pastes</h2>
+            <a href="manage_pastes.php" class="btn btn-primary">Manage Pastes</a>
+        </div>
     </div>
-</div>
 	<?php include 'footbar.php'; ?>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
