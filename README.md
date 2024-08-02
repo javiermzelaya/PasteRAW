@@ -15,11 +15,15 @@ PHP 8.x
 
 **LIGHT MODE**
 
-![ligth](https://github.com/user-attachments/assets/1ed6e323-b9af-4c39-9ff1-0651d60f718b)
+![light_](https://github.com/user-attachments/assets/97d7c526-c541-43e6-8c99-82836d5600ca)
+
 
 **DARK MODE**
 
-![dark](https://github.com/user-attachments/assets/2e17cb61-2de4-4903-9ac0-1ee27c626e0c)
+![dark_](https://github.com/user-attachments/assets/86635481-b38d-410e-8715-884c70bda128)
+
+
+
 
 
 
