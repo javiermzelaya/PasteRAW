@@ -8,6 +8,15 @@ $settings = $stmt->fetch();
 $title = $settings['title'] ?? 'Your Site Title';
 $logo_filename = $settings['logo_filename'] ?? '';
 
+// Obtener la configuración de anuncios desde la base de datos
+$stmt = $pdo->prepare('SELECT ad_type, ad_code FROM ads_settings');
+$stmt->execute();
+$ads_settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$ads = [];
+foreach ($ads_settings as $ad) {
+    $ads[$ad['ad_type']] = $ad['ad_code'];
+}
+
 // Obtener el contenido del paste
 $paste_id = $_GET['id'] ?? 0;
 $stmt = $pdo->prepare('SELECT title, content FROM pastes WHERE id = ?');
@@ -28,13 +37,12 @@ $paste = $stmt->fetch();
         body {
             font-family: Poppins, sans-serif;
         }
-		.dark-mode body. {
- 			 background-color: #1e1e1e;
-  
-		}
-		h1.options.text-center {
-  margin-top: 25px;
-}
+        .dark-mode body {
+            background-color: #1e1e1e;
+        }
+        h1.options.text-center {
+            margin-top: 25px;
+        }
         .code-container {
             font-family: 'Consolas', 'Courier New', monospace;
             display: flex;
@@ -59,38 +67,63 @@ $paste = $stmt->fetch();
             overflow-x: auto !important;
             white-space: nowrap !important;
         }
+        .ad-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .banner-ad {
+            width: 100%;
+            height: 90px; /* Tamaño típico de un banner */
+        }
+        .skyscraper-ad {
+            width: 160px;
+            height: 600px; /* Tamaño típico de un rascacielos */
+        }
+        .leaderboard-ad {
+            width: 728px;
+            height: 90px; /* Tamaño típico de un leaderboard */
+        }
+        .rectangle-ad {
+            width: 300px;
+            height: 250px; /* Tamaño típico de un rectángulo */
+        }
+        .mobile-ad {
+            width: 320px;
+            height: 50px; /* Tamaño típico de un anuncio móvil */
+        }
     </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
-
     <?php if (isset($ads['banner'])): ?>
-        <div class="ad-container">
+        <div class="ad-container banner-ad">
             <?= $ads['banner'] ?>
         </div>
     <?php endif; ?>
-
     <div class="container-fluid">
         <h1 class="options text-center"><?= htmlspecialchars($paste['title']) ?></h1>
-	</div>
-        <div class="code-container">
-            <div class="line-numbers"></div>
-            <pre class="code-content"><code id="paste-code"><?= htmlspecialchars($paste['content']) ?></code></pre>
-        </div>
-        <div class="options text-center">
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="edit_paste.php?id=<?= $paste_id ?>" class="btn btn-primary">Edit</a>
-                <a href="raw.php?id=<?= $paste_id ?>" class="btn btn-primary">View Raw</a>
-            <?php endif; ?>
-
+    </div>
+    <div class="code-container">
+        <div class="line-numbers"></div>
+        <pre class="code-content"><code id="paste-code"><?= htmlspecialchars($paste['content']) ?></code></pre>
+    </div>
+    <div class="options text-center">
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="edit_paste.php?id=<?= $paste_id ?>" class="btn btn-primary">Edit</a>
+            <a href="raw.php?id=<?= $paste_id ?>" class="btn btn-primary">View Raw</a>
+        <?php endif; ?>
+        <div class="ad-container">
             <?php foreach (['skyscraper', 'leaderboard', 'rectangle', 'mobile'] as $adType): ?>
                 <?php if (isset($ads[$adType])): ?>
-                    <div class="ad-container">
+                    <div class="<?= $adType ?>-ad">
                         <?= $ads[$adType] ?>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+    </div>
     <script>
         window.onload = function() {
             const codeElement = document.getElementById('paste-code');
@@ -104,46 +137,11 @@ $paste = $stmt->fetch();
             lineNumbersElement.innerHTML = lineNumbersHTML;
         };
     </script>
-
     <?php include 'footbar.php'; ?>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            const toggle = document.getElementById('theme-toggle');
-            const codeThemeLight = document.getElementById('code-theme-light');
-            const codeThemeDark = document.getElementById('code-theme-dark');
-
-            let currentTheme = localStorage.getItem('theme') || 'light';
-
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    body.classList.add('dark-mode');
-                    codeThemeLight.disabled = true;
-                    codeThemeDark.disabled = false;
-                } else {
-                    body.classList.remove('dark-mode');
-                    codeThemeLight.disabled = false;
-                    codeThemeDark.disabled = true;
-                }
-            }
-
-            applyTheme(currentTheme);
-
-            toggle.addEventListener('click', () => {
-                const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
-                localStorage.setItem('theme', newTheme);
-                applyTheme(newTheme);
-            });
-
-            hljs.initHighlightingOnLoad();
-            hljs.lineNumbersBlock();
-        });
-    </script>
 </body>
 </html>
