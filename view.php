@@ -74,31 +74,17 @@ $paste = $stmt->fetch();
             width: 100%;
             height: 90px; /* Tamaño típico de un banner */
         }
-        .skyscraper-ad {
-            width: 160px;
-            height: 600px; /* Tamaño típico de un rascacielos */
-        }
-        .leaderboard-ad {
-            width: 728px;
-            height: 90px; /* Tamaño típico de un leaderboard */
-        }
-        .rectangle-ad {
-            width: 300px;
-            height: 250px; /* Tamaño típico de un rectángulo */
-        }
-        .mobile-ad {
-            width: 320px;
-            height: 50px; /* Tamaño típico de un anuncio móvil */
-        }
     </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
-    <?php if (isset($ads['banner'])): ?>
+    
+    <?php if (isset($ads['banner_top'])): ?>
         <div class="ad-container banner-ad">
-            <?= $ads['banner'] ?>
+            <?= $ads['banner_top'] ?>
         </div>
     <?php endif; ?>
+    
     <div class="container-fluid">
         <h1 class="options text-center"><?= htmlspecialchars($paste['title']) ?></h1>
     </div>
@@ -106,21 +92,19 @@ $paste = $stmt->fetch();
         <div class="line-numbers"></div>
         <pre class="code-content"><code id="paste-code"><?= htmlspecialchars($paste['content']) ?></code></pre>
     </div>
+    
     <div class="options text-center">
         <?php if (isset($_SESSION['user_id'])): ?>
             <a href="edit_paste.php?id=<?= $paste_id ?>" class="btn btn-primary">Edit</a>
             <a href="raw.php?id=<?= $paste_id ?>" class="btn btn-primary">View Raw</a>
         <?php endif; ?>
-        <div class="ad-container">
-            <?php foreach (['skyscraper', 'leaderboard', 'rectangle', 'mobile'] as $adType): ?>
-                <?php if (isset($ads[$adType])): ?>
-                    <div class="<?= $adType ?>-ad">
-                        <?= $ads[$adType] ?>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
     </div>
+
+	<?php if (isset($ads['banner_bottom'])): ?>
+        <div class="ad-container banner-ad">
+            <?= $ads['banner_bottom'] ?>
+        </div>
+   <?php endif; ?>
     <script>
         window.onload = function() {
             const codeElement = document.getElementById('paste-code');
@@ -134,7 +118,9 @@ $paste = $stmt->fetch();
             lineNumbersElement.innerHTML = lineNumbersHTML;
         };
     </script>
+    
     <?php include 'footbar.php'; ?>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
