@@ -40,9 +40,6 @@ $paste = $stmt->fetch();
         .dark-mode body {
             background-color: #1e1e1e;
         }
-        h1.options.text-center {
-            margin-top: 25px;
-        }
         .code-container {
             font-family: 'Consolas', 'Courier New', monospace;
             display: flex;
