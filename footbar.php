@@ -14,21 +14,51 @@ $footer_legend = $settings['footer_legend'] ?? '';
 
     <style>
         @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+		
+		body {
+            font-family: Poppins;
+			margin-bottom: 80px; /* Altura estimada del footer */
+    		padding-bottom: 40px; /* Espacio adicional opcional para asegurarse */
+        }
+		
+		a.nav-link.prominent-button {
+  			text-transform: uppercase;
+  
+		}
 
-        body {
-            font-family: Poppins, sans-serif;
-            margin-bottom: 100px;
-        }
-    .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        padding: 1rem 0;
-        transition: background-color 0.3s ease;
-    }
-        .navbar {
-            transition: background-color 0.3s, color 0.3s;
-        }
+		nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+			background-color: #ffffff;
+		}
+
+		footer.footer.mt-auto.py-3.bg-light {
+  			background-color: #ffffff;
+		}
+		
+		span.text-muted {
+  			color: #999999 !important;
+		}
+
+		div.container.d-flex.justify-content-center {
+			background-color: #ffffff;
+			color: #999999;
+		}
+		
+		.footer {
+        	position: fixed;
+        	bottom: 0;
+        	width: 100%;
+        	padding: 1rem 0;
+    	}
+		footer.footer.mt-auto.py-3.bg-dark {
+  			background-color: #2c2c2c !important;
+  
+		}
+		nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  			background-color: #2c2c2c !important;
+		}
+		.dark-mode div.container.d-flex.justify-content-center {
+  			background-color: #1e1e1e;
+		}
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -36,13 +66,10 @@ $footer_legend = $settings['footer_legend'] ?? '';
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s, color 0.3s;
-        }
-        .dark-mode {
+        }				
+		.dark-mode {
             background-color: #1e1e1e;
             color: #ffffff;
-        }
-        .dark-mode .navbar {
-            background-color: #2c2c2c;
         }
         .dark-mode .container {
             background-color: #2c2c2c;
@@ -77,24 +104,29 @@ $footer_legend = $settings['footer_legend'] ?? '';
             padding: 15px;
             border-radius: 5px;
         }
-        .hljs-ln-numbers {
-            text-align: right;
-            padding-right: 10px;
-            margin-right: 10px;
-            border-right: 1px solid #888;
-            color: #888;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .hljs-ln-code {
-            padding-left: 10px;
-        }
-        .dark-mode .hljs-ln-numbers {
-            border-right-color: #555;
-            color: #aaa;
-        }
         .dark-mode pre {
             background-color: #1e1e1e;
             color: #f8f8f2;
-        }
+        }		
+/* Responsividad */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-item {
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .navbar-logo {
+        height: 30px;
+    }
+}
+
+@media (min-width: 769px) {
+    .navbar {
+        padding: 0.75rem 1.5rem;
+    }
+}
     </style>
