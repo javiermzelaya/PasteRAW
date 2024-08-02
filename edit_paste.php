@@ -48,64 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-.poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
+		
         body {
             font-family: Poppins;
         }
-        .dark-mode {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-        .dark-mode .navbar {
-            background-color: #2c2c2c;
-            border-bottom: 1px solid #3a3a3a;
-        }
-        .dark-mode .container {
-            background-color: #1c1c1c;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .dark-mode h1, .dark-mode h2 {
-            color: #ffffff;
-        }
-        .dark-mode .form-group label {
-            color: #cccccc;
-        }
-        .dark-mode .form-control {
-            background-color: #3a3a3a;
-            color: #ffffff;
-            border: 1px solid #555555;
-        }
-        .dark-mode .form-control:focus {
-            background-color: #3a3a3a;
-            color: #ffffff;
-            border-color: #007bff;
-            box-shadow: none;
-        }
-        .dark-mode .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            border-radius: 5px;
-        }
-        .dark-mode .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-        .alert-info {
-            background-color: #17a2b8;
-            border-color: #17a2b8;
-            color: #ffffff;
-        }
     </style>
 </head>
-<body class="dark-mode">
-<?php include 'navbar.php'; ?>
+	<?php include 'navbar.php'; ?>
 <div class="container mt-5">
     <h1>Edit Paste</h1>
     <?php if (!empty($message)): ?>
