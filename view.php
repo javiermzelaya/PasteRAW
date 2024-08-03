@@ -22,6 +22,17 @@ $paste_id = $_GET['id'] ?? 0;
 $stmt = $pdo->prepare('SELECT title, content FROM pastes WHERE id = ?');
 $stmt->execute([$paste_id]);
 $paste = $stmt->fetch();
+
+// Función para convertir URLs en enlaces clickeables
+function make_links_clickable($text) {
+    return preg_replace(
+        '/(https?:\/\/[^\s]+)/',
+        '<a href="$1" target="_blank">$1</a>',
+        htmlspecialchars($text)
+    );
+}
+
+$content = make_links_clickable($paste['content']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +60,12 @@ $paste = $stmt->fetch();
             height: auto;
             box-sizing: border-box;
         }
-	pre.code-content {
-  		padding-top: 0px;
-	}
-	div.code-container {
-  		line-height: 15px
-  
-	}
+        pre.code-content {
+            padding-top: 0px;
+        }
+        div.code-container {
+            line-height: 15px;
+        }
         .line-numbers {
             font-family: 'Consolas', 'Courier New', monospace;
             padding-right: 10px;
@@ -97,7 +107,7 @@ $paste = $stmt->fetch();
     </div>
     <div class="code-container">
         <div class="line-numbers"></div>
-        <pre class="code-content"><code id="paste-code"><?= htmlspecialchars($paste['content']) ?></code></pre>
+        <pre class="code-content"><code id="paste-code"><?= $content ?></code></pre>
     </div>
     
     <div class="options text-center">
@@ -107,11 +117,11 @@ $paste = $stmt->fetch();
         <?php endif; ?>
     </div>
 
-	<?php if (isset($ads['banner_bottom'])): ?>
+    <?php if (isset($ads['banner_bottom'])): ?>
         <div class="ad-container banner-ad">
             <?= $ads['banner_bottom'] ?>
         </div>
-   <?php endif; ?>
+    <?php endif; ?>
     <script>
         window.onload = function() {
             const codeElement = document.getElementById('paste-code');
