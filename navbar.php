@@ -96,6 +96,14 @@ $logo_filename = $settings['logo_filename'] ?? '';
     text-transform: uppercase; /* Mostrar en mayúsculas */
     transition: color 0.3s ease;
 }
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  border-style: solid !important;
+  border-left-width: 0px !important;
+  border-right-width: 0px !important;
+  border-top-width: 0px !important;
+  border-color: #007bff !important;
+  border-bottom-width: 5px !important;
+}
 	/* Botón prominente */
 a.nav-link.prominent-button {
     font-weight: bold;
