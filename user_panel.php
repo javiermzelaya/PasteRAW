@@ -58,42 +58,44 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-family: Poppins;
         }
 
-		.dark-mode thead tr th {
-  			border: 1px solid #4a4a4a !important;
-		}
+        .dark-mode thead tr th {
+            border: 1px solid #4a4a4a !important;
+        }
 
-		.dark-mode tbody tr td {
-			border: 1px solid #4a4a4a !important;
-		}
-		thead tr th {
-			border: 1px solid #d9d9d9 !important;
-		}
+        .dark-mode tbody tr td {
+            border: 1px solid #4a4a4a !important;
+        }
+        thead tr th {
+            border: 1px solid #d9d9d9 !important;
+        }
 
-		tbody tr td {
-			border: 1px solid #d9d9d9 !important;
-		}
+        tbody tr td {
+            border: 1px solid #d9d9d9 !important;
+        }
     </style>
 </head>
 <body>
-    	<?php include 'navbar.php'; ?>
-    <div class="container mt-5">
+    <?php include 'navbar.php'; ?>
+    <div class="container-fluid">
         <h1 class="mb-4">User Panel</h1>
 
         <h2>Profile</h2>
         <form action="user_panel.php" method="post">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="form-control" value="<?= htmlspecialchars($username) ?>" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" value="<?= htmlspecialchars($username) ?>" readonly>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="password">New Password:</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+            <button type="submit" name="update_profile" class="btn btn-primary mt-3">Update Profile</button>
         </form>
 
         <h2 class="mt-5">My Pastes</h2>
@@ -122,7 +124,7 @@ $pastes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
-    	<?php include 'footbar.php'; ?>
+    <?php include 'footbar.php'; ?>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
