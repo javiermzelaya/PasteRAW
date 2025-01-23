@@ -111,14 +111,14 @@ $logo_filename = $settings['logo_filename'] ?? '';
     background-color: #ffffff !important; /* Color de fondo en modo claro al pasar el mouse */
 }
 
-.dark-mode .prominent-button {
+.dark-mode a.nav-link.prominent-button {
     color: #fff !important; /* Color de texto en modo oscuro */
-    background-color: #1c1c1c !important; /* Color de fondo en modo oscuro */
+    background-color: #007bff !important; /* Color de fondo en modo oscuro */
 }
 
-.dark-mode .prominent-button:hover {
+.dark-mode a.nav-link.prominent-button:hover {
     color: #000;
-    background-color: #1c1c1c !important; /* Color de fondo en modo oscuro al pasar el mouse */
+    background-color: #0056b3 !important; /* Color de fondo en modo oscuro al pasar el mouse */
 }
 /* Estilo del logo del navbar */
 .navbar-logo {
