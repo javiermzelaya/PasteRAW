@@ -80,10 +80,9 @@ $footer_legend = $settings['footer_legend'];
     <title>Manage Users - <?= htmlspecialchars($site_name) ?></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-		
+	<style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap');
         body {
             font-family: Poppins;
         }
@@ -152,13 +151,7 @@ $footer_legend = $settings['footer_legend'];
         .dark-mode .table tbody tr {
             border-top: 1px solid #4a4a4a;
         }
-		thead tr th {
-			border: 1px solid #d9d9d9 !important;
-		}
 
-		tbody tr td {
-			border: 1px solid #d9d9d9 !important;
-		}
         .dark-mode .table tbody tr:nth-child(even) {
             background-color: #2c2c2c;
         }
@@ -166,13 +159,7 @@ $footer_legend = $settings['footer_legend'];
         .dark-mode .table tbody tr:nth-child(odd) {
             background-color: #3a3a3a;
         }
-		.dark-mode thead tr th {
-  			border: 1px solid #4a4a4a !important;
-		}
 
-		.dark-mode tbody tr td {
-			border: 1px solid #4a4a4a !important;
-		}
         .dark-mode .table .btn-warning {
             background-color: #ffc107;
             border-color: #ffc107;
@@ -200,117 +187,146 @@ $footer_legend = $settings['footer_legend'];
         .navbar-dark .navbar-brand {
             color: #ffffff;
         }
-    </style>
+
+        /* Horizontal form layout adjustments */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .form-group:last-child {
+            margin-right: 0;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
+</style>
 </head>
+<body>
 <?php include 'navbar.php'; ?>
-<div class="container mt-5">
-    <h2>Add New User</h2>
-    <form action="" method="post">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select class="form-control" id="role" name="role" required>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Add User</button>
-    </form>
+    <div class="container mt-5">
+        <h2>Add New User</h2>
+        <form action="" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </form>
 
-    <h2 class="mt-5">Existing Users</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $user): ?>
+        <h2 class="mt-5">Existing Users</h2>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']) ?></td>
-                    <td><?= htmlspecialchars($user['username']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
-                    <td><?= htmlspecialchars($user['role']) ?></td>
-                    <td>
-                        <form action="" method="post" style="display:inline;">
-                            <input type="hidden" name="delete_user_id" value="<?= $user['id'] ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                        <button class="btn btn-warning btn-sm" onclick="editUser(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>', '<?= htmlspecialchars($user['email']) ?>', '<?= htmlspecialchars($user['role']) ?>')">Edit</button>
-                    </td>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['id']) ?></td>
+                        <td><?= htmlspecialchars($user['username']) ?></td>
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td><?= htmlspecialchars($user['role']) ?></td>
+                        <td>
+                            <form action="" method="post" style="display:inline;">
+                                <input type="hidden" name="delete_user_id" value="<?= $user['id'] ?>">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            <button class="btn btn-warning btn-sm" onclick="editUser(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>', '<?= htmlspecialchars($user['email']) ?>', '<?= htmlspecialchars($user['role']) ?>')">Edit</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-    <div class="modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="editUserForm" action="" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="edit_user_id" name="edit_user_id">
-                        <div class="form-group">
-                            <label for="edit_username">Username</label>
-                            <input type="text" class="form-control" id="edit_username" name="edit_username" required>
+        <div class="modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="editUserForm" action="" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="edit_email">Email</label>
-                            <input type="email" class="form-control" id="edit_email" name="edit_email" required>
+                        <div class="modal-body">
+                            <input type="hidden" id="edit_user_id" name="edit_user_id">
+                            <div class="form-group">
+                                <label for="edit_username">Username</label>
+                                <input type="text" class="form-control" id="edit_username" name="edit_username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_email">Email</label>
+                                <input type="email" class="form-control" id="edit_email" name="edit_email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_password">Password</label>
+                                <input type="password" class="form-control" id="edit_password" name="edit_password">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_role">Role</label>
+                                <select class="form-control" id="edit_role" name="edit_role" required>
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="edit_password">Password (leave blank to keep current)</label>
-                            <input type="password" class="form-control" id="edit_password" name="edit_password">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
-                        <div class="form-group">
-                            <label for="edit_role">Role</label>
-                            <select class="form-control" id="edit_role" name="edit_role" required>
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-		<?php include 'footbar.php'; ?>
+<?php include 'footbar.php'; ?>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    function editUser(id, username, email, role) {
-        $('#edit_user_id').val(id);
-        $('#edit_username').val(username);
-        $('#edit_email').val(email);
-        $('#edit_role').val(role);
-        $('#editUserModal').modal('show');
-    }
-</script>
+    <script>
+        function editUser(id, username, email, role) {
+            $('#editUserModal').modal('show');
+            $('#edit_user_id').val(id);
+            $('#edit_username').val(username);
+            $('#edit_email').val(email);
+            $('#edit_role').val(role);
+        }
+		</script>
 </body>
 </html>
