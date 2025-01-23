@@ -92,26 +92,29 @@ $logo_filename = $settings['logo_filename'] ?? '';
 <style>
 	/* Estilo de los enlaces del navbar */
 .nav-link {
+	border-style: solid;
     text-transform: uppercase; /* Mostrar en mayúsculas */
     transition: color 0.3s ease;
 }
 	/* Botón prominente */
-.prominent-button {
+a.nav-link.prominent-button {
     font-weight: bold;
-    color: #999999 !important; /* Color de texto en modo claro */
-    background-color: #ffffff !important; /* Color de fondo en modo claro */
+    color: #9b9b9b !important; /* Color de texto en modo claro */
+    background-color: #ffffff; !important; /* Color de fondo en modo claro */
     padding: 5px 10px;
     border-radius: 5px;
     margin-left: 5px; /* Espacio entre los botones */
     transition: all 0.3s ease;
 }
 
-.prominent-button:hover {
-    color: #999999;
-    background-color: #ffffff !important; /* Color de fondo en modo claro al pasar el mouse */
+a.nav-link.prominent-button:hover {
+    color: #000000;
+    background-color: #efefef !important; /* Color de fondo en modo claro al pasar el mouse */
 }
 
 .dark-mode a.nav-link.prominent-button {
+	border-style: solid;
+    border-color: #007bff;
     color: #fff !important; /* Color de texto en modo oscuro */
     background-color: #007bff !important; /* Color de fondo en modo oscuro */
 }
