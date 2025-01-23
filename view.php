@@ -49,7 +49,7 @@ $content = make_links_clickable($paste['content']);
             font-family: Poppins, sans-serif;
         }
         .dark-mode body {
-            background-color: #1e1e1e;
+            background-color: #212121;
         }
         .code-container {
             font-family: 'Consolas', 'Courier New', monospace;
