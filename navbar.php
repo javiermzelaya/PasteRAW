@@ -113,12 +113,12 @@ $logo_filename = $settings['logo_filename'] ?? '';
 
 .dark-mode .prominent-button {
     color: #fff !important; /* Color de texto en modo oscuro */
-    background-color: #1e1e1e !important; /* Color de fondo en modo oscuro */
+    background-color: #1c1c1c !important; /* Color de fondo en modo oscuro */
 }
 
 .dark-mode .prominent-button:hover {
     color: #000;
-    background-color: #1e1e1e !important; /* Color de fondo en modo oscuro al pasar el mouse */
+    background-color: #1c1c1c !important; /* Color de fondo en modo oscuro al pasar el mouse */
 }
 /* Estilo del logo del navbar */
 .navbar-logo {
