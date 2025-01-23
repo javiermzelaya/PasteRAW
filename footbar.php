@@ -148,7 +148,17 @@ body {
 		background-color: #212121 !important;
 		color: #ffffff !important;
 }
+	.dark-mode div.container.my-5 {
+  		background-color: #1c1c1c !important;
+}
 
+	.dark-mode .card  {
+		background-color: #212121 !important;
+}
+
+	.dark-mode div.card-header {
+		background-color: #1a1a1a !important;
+}
 /* Responsividad */
 @media (max-width: 768px) {
     .navbar {
