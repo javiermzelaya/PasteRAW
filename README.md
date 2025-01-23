@@ -15,12 +15,13 @@ PHP 8.x
 
 **LIGHT MODE**
 
-![light_](https://github.com/user-attachments/assets/97d7c526-c541-43e6-8c99-82836d5600ca)
+![Captura de pantalla 2025-01-24 001721](https://github.com/user-attachments/assets/4fcd5b01-a80c-4b8b-b8d9-97f565018139)
 
 
 **DARK MODE**
 
-![dark_](https://github.com/user-attachments/assets/86635481-b38d-410e-8715-884c70bda128)
+![Captura de pantalla 2025-01-24 001707](https://github.com/user-attachments/assets/22999d02-96b8-4985-bad2-3f942eb97f08)
+
 
 
 
