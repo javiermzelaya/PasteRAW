@@ -23,6 +23,11 @@ body {
 html body {
 	background-color: #ffffff;
 }
+	
+div.container.mt-5 {
+    zoom: 80% !important;
+}
+	
 h1.mb-4,
 h2.mt-5,
 div div label {
@@ -145,8 +150,9 @@ div.form-group.col-md-4 {
 	margin-top: 30px !important;
 }
 	
-.dark-mode div.container.mt-5 {
-	background-color: #1c1c1c !important;
+	.dark-mode div.container.mt-5 {
+		background-color: #1c1c1c !important;
+    	zoom: 80% !important;
 }
 
 .dark-mode div.container.d-flex.justify-content-center {
