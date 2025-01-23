@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 	<?php include 'navbar.php'; ?>
-    <div class="container mt-5">
+    <div class="container-fluid">
         <title>Admin Panel - <?= htmlspecialchars($site_name) ?></title>
     
         <form action="admin_panel.php" method="post" enctype="multipart/form-data">
