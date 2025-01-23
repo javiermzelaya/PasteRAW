@@ -20,6 +20,24 @@ body {
     margin-bottom: 80px; /* Altura estimada del footer */
     padding-bottom: 40px; /* Espacio adicional opcional */
 }
+html body {
+	background-color: #ffffff;
+}
+h1.mb-4,
+h2.mt-5,
+div div label {
+    background-color: #f8f9fa !important;
+    border: 15px solid #f8f9fa !important;
+    border-radius: 20px !important;
+    width: fit-content !important;
+}
+	h1.mb-4 {
+		margin-top: 30px !important;
+}
+	
+div.form-group.col-md-4 {
+  text-align: center;
+}	
 
 .container {
     max-width: 800px;
@@ -105,7 +123,6 @@ body {
 
 .dark-mode h1.mb-4,
 .dark-mode h2.mt-5,
-.dark-mode body div h2,
 .dark-mode div div label {
     background-color: #1a1a1a !important;
     border: 15px solid #1a1a1a !important;
@@ -129,8 +146,6 @@ body {
 }
 	
 .dark-mode div.container.mt-5 {
-    zoom: 90% !important;
-	margin-top: 30px !important;
 	background-color: #1c1c1c !important;
 }
 
@@ -153,7 +168,7 @@ body {
 }
 
 	.dark-mode .card  {
-		background-color: #212121 !important;
+		background-color: #262626 !important;
 }
 
 	.dark-mode div.card-header {
