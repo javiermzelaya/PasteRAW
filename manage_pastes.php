@@ -57,7 +57,6 @@ $settings = $stmt->fetch();
 $title = $settings['title'];
 $logo_filename = $settings['logo_filename'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,9 +68,15 @@ $logo_filename = $settings['logo_filename'];
         body {
             font-family: 'Poppins', sans-serif;
         }
-        table {
-            width: 100%;
-            margin-top: 20px;
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        .btn-actions {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
@@ -107,36 +112,26 @@ $logo_filename = $settings['logo_filename'];
         <?php endif; ?>
 
         <h2 class="mt-5"><?= $is_admin ? 'All Pastes' : 'My Pastes' ?></h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Created At</th>
-                    <?php if ($is_admin): ?>
-                        <th>Username</th>
-                    <?php endif; ?>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pastes as $paste): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($paste['id']) ?></td>
-                        <td><?= htmlspecialchars($paste['title']) ?></td>
-                        <td><?= htmlspecialchars($paste['created_at']) ?></td>
-                        <?php if ($is_admin): ?>
-                            <td><?= htmlspecialchars($paste['username']) ?></td>
-                        <?php endif; ?>
-                        <td>
-                            <a href="view.php?id=<?= $paste['id'] ?>" class="btn btn-info btn-sm">View</a>
-                            <a href="edit_paste.php?id=<?= $paste['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="delete_paste.php?id=<?= $paste['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this paste?');">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div class="row">
+            <?php foreach ($pastes as $paste): ?>
+                <div class="col-md-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= htmlspecialchars($paste['title']) ?></h5>
+                            <p class="card-text"><strong>Created At:</strong> <?= htmlspecialchars($paste['created_at']) ?></p>
+                            <?php if ($is_admin): ?>
+                                <p class="card-text"><strong>Username:</strong> <?= htmlspecialchars($paste['username']) ?></p>
+                            <?php endif; ?>
+                            <div class="btn-actions">
+                                <a href="view.php?id=<?= $paste['id'] ?>" class="btn btn-info btn-sm">View</a>
+                                <a href="edit_paste.php?id=<?= $paste['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="delete_paste.php?id=<?= $paste['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this paste?');">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
     <?php include 'footbar.php'; ?>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -109,38 +109,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include 'navbar.php'; ?>
     <div class="container-fluid">
         <form action="admin_panel.php" method="post" enctype="multipart/form-data">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Site Settings</h3>
-                </div>
-                <div class="card-body">
+        <div class="card">
+            <div class="card-header">Site Settings</div>
+            <div class="card-body">
                     <div class="form-group">
-                        <label for="title">Site Title:</label>
+                    <div class="card">
+            		<div class="card-header">Site Title:</div>
+            		<div class="card-body">
                         <input type="text" id="title" name="title" class="form-control" value="<?= htmlspecialchars($site_name) ?>">
                     </div>
+					</div>
+					</div>
                     <div class="form-group">
-                        <label for="footer_legend">Footer Legend:</label>
+                    <div class="card">
+            		<div class="card-header">Footer Legend:</div>
+            		<div class="card-body">
                         <input type="text" id="footer_legend" name="footer_legend" class="form-control" value="<?= htmlspecialchars($footer_legend) ?>">
                     </div>
+					</div>
+					</div>
                     <div class="form-group">
-                        <label for="logo">Upload Logo:</label>
+                    <div class="card">
+            		<div class="card-header">Upload Logo:</div>
+            		<div class="card-body">
                         <input type="file" id="logo" name="logo" class="form-control">
                         <?php if ($logo_filename): ?>
                             <div class="mt-3">
                                 <img src="uploads/<?= htmlspecialchars($logo_filename) ?>" alt="Logo" style="max-width: 200px;">
-                                <button type="submit" name="delete_logo" class="btn btn-danger mt-2">Delete Logo</button>
                             </div>
                         <?php endif; ?>
                     </div>
-                    <button type="submit" name="update_logo" class="btn btn-primary">Update Settings</button>
+					</div>
+					</div>
+                    <button type="submit" name="update_logo" class="btn btn-primary">Update Settings</button> <button type="submit" name="delete_logo" class="btn btn-danger">Delete Logo</button>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3>Advertisement Settings</h3>
-                </div>
-                <div class="card-body">
+        <div class="card">
+            <div class="card-header">Advertisement Settings</div>
+            <div class="card-body">
                     <?php
                     $ad_types = ['banner_top' => 'Banner Top', 'banner_bottom' => 'Banner Bottom'];
                     foreach ($ad_types as $type => $label): ?>
@@ -154,19 +161,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
 
-        <div class="card mt-5">
-            <div class="card-header">
-                <h3>Manage Users</h3>
-            </div>
+        <div class="card">
+            <div class="card-header">Manage Users</div>
             <div class="card-body">
                 <a href="manage_users.php" class="btn btn-primary">Manage Users</a> <a href="add_user.php" class="btn btn-primary">Add User</a>
             </div>
         </div>
 
-        <div class="card mt-5">
-            <div class="card-header">
-                <h3>Manage Pastes</h3>
-            </div>
+        <div class="card">
+            <div class="card-header">Manage Pastes</div>
             <div class="card-body">
                 <a href="manage_pastes.php" class="btn btn-primary">Manage Pastes</a>
             </div>

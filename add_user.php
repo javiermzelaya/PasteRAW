@@ -2,26 +2,45 @@
 session_start();
 require 'config.php'; // Incluir la configuración global
 
+// Verificar si el usuario tiene permisos de administrador
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
 }
 
-// Obtener la configuración actual
-$site_name = $settings['title'];
+// Obtener la configuración del sitio
+$site_name = $settings['title'] ?? 'Admin Panel';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $role = $_POST['role'];
+    // Validar y sanitizar entradas del formulario
+    $username = trim($_POST['username'] ?? '');
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+    $password = trim($_POST['password'] ?? '');
+    $role = trim($_POST['role'] ?? '');
 
-    // Insertar el nuevo usuario en la base de datos
-    $stmt = $pdo->prepare('INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)');
-    $stmt->execute([$username, $email, $password, $role]);
+    if ($username && $email && $password && $role) {
+        try {
+            // Verificar si el correo electrónico ya existe
+            $stmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
+            $stmt->execute([$email]);
+            $email_exists = $stmt->fetchColumn();
 
-    header('Location: manage_users.php');
-    exit;
+            if ($email_exists) {
+                $error_message = "El correo electrónico ya está registrado.";
+            } else {
+                // Insertar el nuevo usuario en la base de datos
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+                $stmt = $pdo->prepare('INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)');
+                $stmt->execute([$username, $email, $hashed_password, $role]);
+                header('Location: manage_users.php');
+                exit;
+            }
+        } catch (PDOException $e) {
+            $error_message = "Error al agregar el usuario: " . htmlspecialchars($e->getMessage());
+        }
+    } else {
+        $error_message = "Por favor, completa todos los campos correctamente.";
+    }
 }
 ?>
 
@@ -34,161 +53,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
 
         body {
-            font-family: Poppins;
-        }
-
-        .dark-mode {
+            font-family: 'Poppins', sans-serif;
             background-color: #1e1e1e;
-            color: #ffffff;
+            color: #fff;
         }
 
-        .dark-mode .navbar {
+        .container {
             background-color: #2c2c2c;
-            border-bottom: 1px solid #3a3a3a;
-        }
-
-        .dark-mode .container {
-            background-color: #1c1c1c;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-top: 50px;
         }
 
-        .dark-mode h1, .dark-mode h2 {
-            color: #ffffff;
-        }
-
-        .dark-mode .form-group label {
-            color: #cccccc;
-        }
-
-        .dark-mode .form-control {
+        .form-control {
             background-color: #3a3a3a;
-            color: #ffffff;
-            border: 1px solid #555555;
-            border-radius: 5px;
+            color: #fff;
+            border: 1px solid #555;
         }
 
-        .dark-mode .form-control:focus {
-            background-color: #3a3a3a;
-            color: #ffffff;
+        .form-control:focus {
             border-color: #007bff;
-            box-shadow: none;
+            background-color: #3a3a3a;
+            color: #fff;
         }
 
-        .dark-mode .btn-primary {
+        .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            border-radius: 5px;
         }
 
-        .dark-mode .btn-primary:hover {
+        .btn-primary:hover {
             background-color: #0056b3;
-            border-color: #004085;
         }
 
-        .dark-mode .table {
-            background-color: #2c2c2c;
-            color: #ffffff;
-            border-radius: 5px;
-        }
-
-        .dark-mode .table thead th {
-            background-color: #3a3a3a;
-            border-bottom: 1px solid #4a4a4a;
-        }
-
-        .dark-mode .table tbody tr {
-            border-top: 1px solid #4a4a4a;
-        }
-
-        .dark-mode .table tbody tr:nth-child(even) {
-            background-color: #2c2c2c;
-        }
-
-        .dark-mode .table tbody tr:nth-child(odd) {
-            background-color: #3a3a3a;
-        }
-
-        .dark-mode .table .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-            color: #000000;
-            border-radius: 5px;
-        }
-
-        .dark-mode .table .btn-warning:hover {
-            background-color: #e0a800;
-            border-color: #d39e00;
-        }
-
-        .dark-mode .table .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: #ffffff;
-            border-radius: 5px;
-        }
-
-        .dark-mode .table .btn-danger:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
-        }
-
-        .navbar-dark .navbar-brand {
-            color: #ffffff;
-        }
-
-        /* Horizontal form layout adjustments */
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .form-group {
-            flex: 1;
-            margin-right: 20px;
-        }
-
-        .form-group:last-child {
-            margin-right: 0;
-        }
-
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-            }
-
-            .form-group {
-                margin-bottom: 15px;
-            }
+        .alert {
+            background-color: #d9534f;
+            color: #fff;
+            border-radius: 4px;
+            padding: 10px;
         }
     </style>
 </head>
-<body class="dark-mode">
+<body>
 <?php include 'navbar.php'; ?>
-<div class="container mt-5">
-    <h2>Add User</h2>
+
+<div class="container-fluid">
+    <h2 class="mt-5">Add User</h2>
+
+    <?php if (isset($error_message)): ?>
+        <div class="alert"><?= htmlspecialchars($error_message) ?></div>
+    <?php endif; ?>
+
     <form action="add_user.php" method="post">
         <div class="form-row">
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
-            <div class="form-group">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="role">Role:</label>
-                <select id="role" name="role" class="form-control">
+                <select id="role" name="role" class="form-control" required>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
@@ -197,9 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn btn-primary">Add User</button>
     </form>
 </div>
-<?php include 'footbar.php'; ?>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<?php include 'footbar.php'; ?>
 </body>
 </html>

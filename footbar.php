@@ -108,8 +108,12 @@ div.form-group.col-md-4 {
 .dark-mode .table thead th,
 .dark-mode .table tbody tr:nth-child(odd),
 .dark-mode .table tbody tr:nth-child(even),
-.dark-mode tbody tr td {
+.dark-mode tbody tr td, table thead th {
     border: 1px solid #424242 !important;
+}
+
+tbody tr td {
+  border: 1px solid #424242 !important;
 }
 
 .dark-mode .form-control {
@@ -150,6 +154,10 @@ div.form-group.col-md-4 {
 	margin-top: 30px !important;
 }
 	
+div.container-fluid {
+	margin-top: 30px !important;
+}
+	
 	.dark-mode div.container.mt-5 {
 		background-color: #1c1c1c !important;
     	zoom: 80% !important;
@@ -180,6 +188,9 @@ div.form-group.col-md-4 {
 	.dark-mode div.card-header {
 		background-color: #1a1a1a !important;
 }
+	pre.code-content {
+  overflow-y: hidden !important;
+  }
 /* Responsividad */
 @media (max-width: 768px) {
     .navbar {
