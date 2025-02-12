@@ -61,10 +61,6 @@ div.form-group.col-md-4 {
     padding: 0.75rem 1.5rem;
 }
 	
-.dark-mode h1.options.text-center {
-    display: none !important;
-}
-	
 .navbar.navbar-expand-lg.bg-light,
 .footer.bg-light {
     background-color: #ffffff;
